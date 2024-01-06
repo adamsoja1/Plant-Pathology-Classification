@@ -21,6 +21,7 @@ class PlantDataset(Dataset):
         target = np.array(self.df['class'].loc[idx])
         image = image/255.0
         target = np.squeeze(np.eye(4)[target.reshape(-1)])
-        image = F.to_tensor(image).to(self.device)
+        image = F.to_tensor(image)        
         image = F.resize(image, (250, 250))
-        return image, torch.tensor(target).to(self.device)
+
+        return image.float(), torch.tensor(target)
